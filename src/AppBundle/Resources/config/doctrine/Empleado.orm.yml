@@ -1,0 +1,64 @@
+AppBundle\Entity\Empleado:
+    type: entity
+    table: empleado
+    indexes:
+        fk_empleado_persona1_idx:
+            columns:
+                - persona_id
+        fk_empleado_cargo1_idx:
+            columns:
+                - cargo_id
+        fk_empleado_sede1_idx:
+            columns:
+                - sede_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        telefonoMovil:
+            type: string
+            nullable: true
+            length: 15
+            fixed: false
+            column: telefono_movil
+        estado:
+            type: string
+            nullable: false
+            length: null
+            fixed: false
+            comment: 'el campo estado en la tabla empleado se usa para "eliminar" una persona que ya no pertenece a la empresa por defecto sera "Activo".'
+            default: Activo
+    manyToOne:
+        cargo:
+            targetEntity: Cargo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cargo_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        persona:
+            targetEntity: Persona
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                persona_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        sede:
+            targetEntity: Sede
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sede_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

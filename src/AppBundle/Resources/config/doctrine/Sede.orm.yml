@@ -1,0 +1,47 @@
+AppBundle\Entity\Sede:
+    type: entity
+    table: sede
+    indexes:
+        fk_sede_municipio1_idx:
+            columns:
+                - municipio_id
+    uniqueConstraints:
+        id_UNIQUE:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreSede:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            column: nombre_sede
+        direccion:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+        telefono:
+            type: string
+            nullable: true
+            length: 15
+            fixed: false
+    manyToOne:
+        municipio:
+            targetEntity: Municipio
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                municipio_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

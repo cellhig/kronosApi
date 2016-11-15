@@ -1,0 +1,42 @@
+AppBundle\Entity\ProductoCatalogo:
+    type: entity
+    table: producto_catalogo
+    indexes:
+        fk_producto_catalogo_producto1_idx:
+            columns:
+                - producto_id
+        fk_producto_catalogo_catalogo1_idx:
+            columns:
+                - catalogo_id
+    uniqueConstraints:
+        id_UNIQUE:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        catalogo:
+            targetEntity: Catalogo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                catalogo_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        producto:
+            targetEntity: Producto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                producto_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

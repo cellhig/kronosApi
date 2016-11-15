@@ -1,0 +1,43 @@
+AppBundle\Entity\Catalogo:
+    type: entity
+    table: catalogo
+    uniqueConstraints:
+        id_UNIQUE:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreCatalogo:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            column: nombre_catalogo
+        descripcion:
+            type: string
+            nullable: true
+            length: 140
+            fixed: false
+        fechaInicio:
+            type: date
+            nullable: true
+            column: fecha_inicio
+        fechaFinalizacion:
+            type: date
+            nullable: true
+            column: fecha_finalizacion
+        estado:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: 'Este campo hace referencia estado que tiene segÃºn el rango de fechas de aplicacion del catalogo.'
+            default: Activo
+    lifecycleCallbacks: {  }

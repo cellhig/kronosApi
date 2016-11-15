@@ -1,0 +1,80 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Persona
+ *
+ * @ORM\Table(name="persona", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_persona_municipio1_idx", columns={"municipio_id"}), @ORM\Index(name="fk_persona_tipo_identificacion1_idx", columns={"tipo_identificacion_id"})})
+ * @ORM\Entity
+ */
+class Persona
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=60, nullable=true)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido", type="string", length=60, nullable=true)
+     */
+    private $apellido;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="identificacion", type="string", length=20, nullable=true)
+     */
+    private $identificacion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="direccion", type="string", length=60, nullable=true)
+     */
+    private $direccion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telefono", type="string", length=15, nullable=true)
+     */
+    private $telefono;
+
+    /**
+     * @var \AppBundle\Entity\Municipio
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Municipio")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="municipio_id", referencedColumnName="id")
+     * })
+     */
+    private $municipio;
+
+    /**
+     * @var \AppBundle\Entity\TipoIdentificacion
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\TipoIdentificacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tipo_identificacion_id", referencedColumnName="id")
+     * })
+     */
+    private $tipoentificacion;
+
+
+}

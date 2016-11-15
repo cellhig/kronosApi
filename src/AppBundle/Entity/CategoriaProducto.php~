@@ -1,0 +1,39 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CategoriaProducto
+ *
+ * @ORM\Table(name="categoria_producto", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})})
+ * @ORM\Entity
+ */
+class CategoriaProducto
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codigo_categoria", type="string", length=15, nullable=false)
+     */
+    private $codigoCategoria;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre_categoria", type="string", length=25, nullable=true)
+     */
+    private $nombreCategoria;
+
+
+}

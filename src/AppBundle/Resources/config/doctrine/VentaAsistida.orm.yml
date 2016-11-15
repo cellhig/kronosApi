@@ -1,0 +1,47 @@
+AppBundle\Entity\VentaAsistida:
+    type: entity
+    table: venta_asistida
+    indexes:
+        fk_venta_asistida_estado_venta_asistida1_idx:
+            columns:
+                - estado_venta_asistida_id
+        fk_venta_asistida_cliente1_idx:
+            columns:
+                - cliente_id
+    uniqueConstraints:
+        id_UNIQUE:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        fechaSolicitud:
+            type: date
+            nullable: false
+            column: fecha_solicitud
+    manyToOne:
+        cliente:
+            targetEntity: Cliente
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cliente_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        estadoVentaAsistida:
+            targetEntity: EstadoVentaAsistida
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                estado_venta_asistida_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

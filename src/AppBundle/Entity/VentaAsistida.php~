@@ -1,0 +1,52 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * VentaAsistida
+ *
+ * @ORM\Table(name="venta_asistida", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_venta_asistida_estado_venta_asistida1_idx", columns={"estado_venta_asistida_id"}), @ORM\Index(name="fk_venta_asistida_cliente1_idx", columns={"cliente_id"})})
+ * @ORM\Entity
+ */
+class VentaAsistida
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_solicitud", type="date", nullable=false)
+     */
+    private $fechaSolicitud;
+
+    /**
+     * @var \AppBundle\Entity\Cliente
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cliente")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="cliente_id", referencedColumnName="id")
+     * })
+     */
+    private $cliente;
+
+    /**
+     * @var \AppBundle\Entity\EstadoVentaAsistida
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\EstadoVentaAsistida")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="estado_venta_asistida_id", referencedColumnName="id")
+     * })
+     */
+    private $estadoVentaAsistida;
+
+
+}

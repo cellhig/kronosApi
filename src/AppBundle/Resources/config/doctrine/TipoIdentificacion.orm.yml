@@ -1,0 +1,23 @@
+AppBundle\Entity\TipoIdentificacion:
+    type: entity
+    table: tipo_identificacion
+    uniqueConstraints:
+        id_UNIQUE:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreTipoIdentificacion:
+            type: string
+            nullable: false
+            length: 30
+            fixed: false
+            column: nombre_tipo_identificacion
+    lifecycleCallbacks: {  }

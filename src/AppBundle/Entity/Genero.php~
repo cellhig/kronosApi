@@ -1,0 +1,32 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Genero
+ *
+ * @ORM\Table(name="genero")
+ * @ORM\Entity
+ */
+class Genero
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="smallint")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="genero_nombre", type="string", length=45, nullable=false)
+     */
+    private $generoNombre;
+
+
+}

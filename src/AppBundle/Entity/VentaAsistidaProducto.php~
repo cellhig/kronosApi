@@ -1,0 +1,59 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * VentaAsistidaProducto
+ *
+ * @ORM\Table(name="venta_asistida_producto", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_venta_asistida_producto_catalogo_venta_asistida1_idx", columns={"venta_asistida_id"}), @ORM\Index(name="fk_venta_asistida_producto_catalogo_producto1_idx", columns={"producto_id"})})
+ * @ORM\Entity
+ */
+class VentaAsistidaProducto
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="observaciones", type="string", length=140, nullable=true)
+     */
+    private $observaciones;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="cantidad_producto", type="integer", nullable=false)
+     */
+    private $cantidadProducto;
+
+    /**
+     * @var \AppBundle\Entity\Producto
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Producto")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="producto_id", referencedColumnName="id")
+     * })
+     */
+    private $producto;
+
+    /**
+     * @var \AppBundle\Entity\VentaAsistida
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VentaAsistida")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="venta_asistida_id", referencedColumnName="id")
+     * })
+     */
+    private $ventaAsistida;
+
+
+}

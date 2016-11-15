@@ -1,0 +1,39 @@
+AppBundle\Entity\ControlExistencia:
+    type: entity
+    table: control_existencia
+    indexes:
+        fk_control_existencia_sede1_idx:
+            columns:
+                - sede_id
+    uniqueConstraints:
+        id_UNIQUE:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        fecha:
+            type: date
+            nullable: false
+        observaciones:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+    manyToOne:
+        sede:
+            targetEntity: Sede
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sede_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

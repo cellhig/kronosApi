@@ -1,0 +1,54 @@
+AppBundle\Entity\Perfil:
+    type: entity
+    table: perfil
+    indexes:
+        fk_perfil_genero1_idx:
+            columns:
+                - genero_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        userId:
+            type: integer
+            nullable: false
+            unsigned: true
+            column: user_id
+        nombre:
+            type: text
+            nullable: true
+            length: 255
+            fixed: false
+        apellido:
+            type: text
+            nullable: true
+            length: 255
+            fixed: false
+        fechaNacimiento:
+            type: datetime
+            nullable: true
+            column: fecha_nacimiento
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+    manyToOne:
+        genero:
+            targetEntity: Genero
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                genero_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

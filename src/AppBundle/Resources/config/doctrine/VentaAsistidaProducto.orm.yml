@@ -1,0 +1,53 @@
+AppBundle\Entity\VentaAsistidaProducto:
+    type: entity
+    table: venta_asistida_producto
+    indexes:
+        fk_venta_asistida_producto_catalogo_venta_asistida1_idx:
+            columns:
+                - venta_asistida_id
+        fk_venta_asistida_producto_catalogo_producto1_idx:
+            columns:
+                - producto_id
+    uniqueConstraints:
+        id_UNIQUE:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        observaciones:
+            type: string
+            nullable: true
+            length: 140
+            fixed: false
+        cantidadProducto:
+            type: integer
+            nullable: false
+            unsigned: false
+            column: cantidad_producto
+    manyToOne:
+        producto:
+            targetEntity: Producto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                producto_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        ventaAsistida:
+            targetEntity: VentaAsistida
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                venta_asistida_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

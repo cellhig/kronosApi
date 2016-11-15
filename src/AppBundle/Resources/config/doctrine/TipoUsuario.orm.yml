@@ -1,0 +1,24 @@
+AppBundle\Entity\TipoUsuario:
+    type: entity
+    table: tipo_usuario
+    id:
+        id:
+            type: smallint
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        tipoUsuarioNombre:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            column: tipo_usuario_nombre
+        tipoUsuarioValor:
+            type: integer
+            nullable: false
+            unsigned: false
+            column: tipo_usuario_valor
+    lifecycleCallbacks: {  }

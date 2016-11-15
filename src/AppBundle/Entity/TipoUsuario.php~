@@ -1,0 +1,39 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TipoUsuario
+ *
+ * @ORM\Table(name="tipo_usuario")
+ * @ORM\Entity
+ */
+class TipoUsuario
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="smallint")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tipo_usuario_nombre", type="string", length=45, nullable=false)
+     */
+    private $tipoUsuarioNombre;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="tipo_usuario_valor", type="integer", nullable=false)
+     */
+    private $tipoUsuarioValor;
+
+
+}

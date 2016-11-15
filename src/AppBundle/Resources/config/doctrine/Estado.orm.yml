@@ -1,0 +1,24 @@
+AppBundle\Entity\Estado:
+    type: entity
+    table: estado
+    id:
+        id:
+            type: smallint
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        estadoNombre:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            column: estado_nombre
+        estadoValor:
+            type: smallint
+            nullable: false
+            unsigned: false
+            column: estado_valor
+    lifecycleCallbacks: {  }

@@ -1,0 +1,23 @@
+AppBundle\Entity\Cargo:
+    type: entity
+    table: cargo
+    uniqueConstraints:
+        id_UNIQUE:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreCargo:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            column: nombre_cargo
+    lifecycleCallbacks: {  }

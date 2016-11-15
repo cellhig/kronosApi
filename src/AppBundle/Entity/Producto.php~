@@ -1,0 +1,70 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Producto
+ *
+ * @ORM\Table(name="producto", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_producto_categoria_producto1_idx", columns={"categoria_producto_id"})})
+ * @ORM\Entity
+ */
+class Producto
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codigo_producto", type="string", length=10, nullable=true)
+     */
+    private $codigoProducto;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=50, nullable=true)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imagen", type="string", length=255, nullable=false)
+     */
+    private $imagen;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descripcion", type="string", length=255, nullable=true)
+     */
+    private $descripcion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="estado", type="string", nullable=false)
+     */
+    private $estado;
+
+    /**
+     * @var \AppBundle\Entity\CategoriaProducto
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CategoriaProducto")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="categoria_producto_id", referencedColumnName="id")
+     * })
+     */
+    private $categoriaProducto;
+
+
+}

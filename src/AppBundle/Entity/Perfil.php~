@@ -1,0 +1,77 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Perfil
+ *
+ * @ORM\Table(name="perfil", indexes={@ORM\Index(name="fk_perfil_genero1_idx", columns={"genero_id"})})
+ * @ORM\Entity
+ */
+class Perfil
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     */
+    private $userId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="text", length=255, nullable=true)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido", type="text", length=255, nullable=true)
+     */
+    private $apellido;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_nacimiento", type="datetime", nullable=true)
+     */
+    private $fechaNacimiento;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @var \AppBundle\Entity\Genero
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Genero")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="genero_id", referencedColumnName="id")
+     * })
+     */
+    private $genero;
+
+
+}

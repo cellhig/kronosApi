@@ -1,0 +1,43 @@
+AppBundle\Entity\ControlExistenciaProducto:
+    type: entity
+    table: control_existencia_producto
+    indexes:
+        fk_control_existencia_producto_producto1_idx:
+            columns:
+                - producto_id
+        fk_control_existencia_producto_control_existencia1_idx:
+            columns:
+                - control_existencia_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        cantidad:
+            type: integer
+            nullable: false
+            unsigned: false
+    manyToOne:
+        controlExistencia:
+            targetEntity: ControlExistencia
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                control_existencia_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        producto:
+            targetEntity: Producto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                producto_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

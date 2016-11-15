@@ -1,0 +1,95 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity
+ */
+class User
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     */
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="auth_key", type="string", length=32, nullable=false)
+     */
+    private $authKey;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password_hash", type="string", length=255, nullable=false)
+     */
+    private $passwordHash;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password_reset_token", type="string", length=255, nullable=true)
+     */
+    private $passwordResetToken;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     */
+    private $email;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rol_id", type="smallint", nullable=false)
+     */
+    private $rolId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="estado_id", type="smallint", nullable=false)
+     */
+    private $estadoId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="tipo_usuario_id", type="smallint", nullable=false)
+     */
+    private $tipoUsuarioId;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+
+}

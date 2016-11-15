@@ -1,0 +1,67 @@
+AppBundle\Entity\User:
+    type: entity
+    table: user
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        username:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+        authKey:
+            type: string
+            nullable: false
+            length: 32
+            fixed: false
+            column: auth_key
+        passwordHash:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            column: password_hash
+        passwordResetToken:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            column: password_reset_token
+        email:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+        rolId:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '1'
+            column: rol_id
+        estadoId:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '1'
+            column: estado_id
+        tipoUsuarioId:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '1'
+            column: tipo_usuario_id
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+    lifecycleCallbacks: {  }

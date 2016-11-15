@@ -1,0 +1,44 @@
+AppBundle\Entity\Cliente:
+    type: entity
+    table: cliente
+    indexes:
+        fk_cliente_persona1_idx:
+            columns:
+                - persona_id
+    uniqueConstraints:
+        correo_electronico_UNIQUE:
+            columns:
+                - correo_electronico
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        correoElectronico:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            column: correo_electronico
+        estado:
+            type: string
+            nullable: false
+            length: null
+            fixed: false
+            comment: 'estado tiene que ver con "habeas data" para no eliminar del todo la parsona a la que esta asociada la cotizacion a menos que el cliente lo decida.'
+            default: Activo
+    manyToOne:
+        persona:
+            targetEntity: Persona
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                persona_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

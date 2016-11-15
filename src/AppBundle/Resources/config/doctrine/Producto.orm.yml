@@ -1,0 +1,59 @@
+AppBundle\Entity\Producto:
+    type: entity
+    table: producto
+    indexes:
+        fk_producto_categoria_producto1_idx:
+            columns:
+                - categoria_producto_id
+    uniqueConstraints:
+        id_UNIQUE:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        codigoProducto:
+            type: string
+            nullable: true
+            length: 10
+            fixed: false
+            column: codigo_producto
+        nombre:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+        imagen:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+        descripcion:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+        estado:
+            type: string
+            nullable: false
+            length: null
+            fixed: false
+            comment: 'este campo hacer referncia a la disponibilidad del producto en en stock.'
+            default: Activo
+    manyToOne:
+        categoriaProducto:
+            targetEntity: CategoriaProducto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                categoria_producto_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

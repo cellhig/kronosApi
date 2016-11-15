@@ -1,0 +1,23 @@
+AppBundle\Entity\Departamento:
+    type: entity
+    table: departamento
+    uniqueConstraints:
+        id_UNIQUE:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreDepartamento:
+            type: string
+            nullable: true
+            length: 25
+            fixed: false
+            column: nombre_departamento
+    lifecycleCallbacks: {  }
