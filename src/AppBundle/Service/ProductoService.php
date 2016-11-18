@@ -28,7 +28,7 @@ class ProductoService
     public function getProducts()
     {
         $jsonResponse = array();
-        $prodcutosArray = array();
+        $productosArray = array();
 
         $prodcutos = $this->repositoryProducto->findBy(array());
 
@@ -36,22 +36,24 @@ class ProductoService
 
 
             foreach ($prodcutos as $prodcuto){
-                $prodcutosArray[] = array(
+                $productosArray[] = array(
                     'productoId' => $prodcuto->getCodigoProducto(),
                     'name' => $prodcuto->getNombre(),
                     'description' => $prodcuto->getDescripcion(),
-                    'image' => 'http://localhost/kronos/backend/web/'.$prodcuto->getImagen(),
-                    'isInstock' => $prodcuto->getEstado(),
+                    'image' => 'http://kronoswebserver.cloudapp.net/kronos/backend/web/'.$prodcuto->getImagen(),
+                    'isInstock' => ($prodcuto->getEstado() == 'Activo' ? true : false ),
                     'Codigocategoria' => $prodcuto->getCategoriaProducto()->getCodigoCategoria(),
                     'Nombrecategoria' => $prodcuto->getCategoriaProducto()->getNombreCategoria()
                 );
             }
             $jsonResponse = array(
-                'prodcutos' => $prodcutosArray
+                'status' => true,
+                'productsArray' => $productosArray
             );
         } else {
             $jsonResponse = array(
-                'no enconmtré nada'
+                'status' => false,
+                'message'=>'no products to show'
             );
         }
         return $jsonResponse;
