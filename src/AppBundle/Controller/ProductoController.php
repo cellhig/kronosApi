@@ -50,4 +50,39 @@ class ProductoController extends Controller
         return $response;
 
     }
+
+    /**
+     * @ApiDoc(
+     *  description="crear venta asistida",
+     * parameters={
+     *  }
+     * )
+     * @Route("/create_assist_sale", name="app_api_create_assist_sale", defaults={"_format": "json"})
+     * @Method({"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function generateNewTransactionAction(Request $request){
+        $jsonFormatter = $this->get('utility.jsonService');
+        $jsonResponse = null;
+        $code = 500;
+        if ($jsonFormatter->jsonFormatter($request)) {
+            $dateService = $this->get('api.ProductoService')->generateNewTransaction($request);
+            if ($dateService != null) {
+                $jsonResponse = $dateService;
+                $code = 200;
+            } else {
+                $jsonResponse = array('message' => 'error', 'status' => false);
+            }
+            $response = new Response(json_encode($jsonResponse));
+            $response->setStatusCode($code);
+            return $response;
+        } else {
+            $jsonResponse = array('message' => 'invalid Json', 'status' => false);
+            $response = new Response(json_encode($jsonResponse));
+            $response->setStatusCode(400);
+            return $response;
+        }
+
+    }
 }
