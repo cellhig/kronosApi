@@ -7,6 +7,7 @@ use AppBundle\Entity\Cliente;
 use AppBundle\Entity\Persona;
 use AppBundle\Entity\VentaAsistida;
 use AppBundle\Entity\VentaAsistidaProducto;
+use AppBundle\Utility\MailService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,9 +44,9 @@ class ProductoService
         $productosArray = array();
 
         $prodcutos = $this->repositoryProducto->findBy(array());
+        $townsArray = $this->getMucipios();
 
         if (count($prodcutos) > 0) {
-
 
             foreach ($prodcutos as $prodcuto){
                 $productosArray[] = array(
@@ -60,7 +61,8 @@ class ProductoService
             }
             $jsonResponse = array(
                 'status' => true,
-                'productsArray' => $productosArray
+                'productsArray' => $productosArray,
+                'towsArray' => $townsArray
             );
         } else {
             $jsonResponse = array(
@@ -118,6 +120,15 @@ class ProductoService
                 }
                 $this->em->flush();
 
+                /* email */
+
+                $email = new MailService();
+                $email->setEmail($cliente->getCorreoElectronico());
+                $email->setName($cliente->getPersona()->getNombre());
+                $email->setAddress($cliente->getPersona()->getDireccion());
+                $email->setPhone($cliente->getPersona()->getTelefono());
+                $email->sendEmail();
+
             } else {
 
                 $persona = new Persona();
@@ -170,7 +181,18 @@ class ProductoService
                     $this->em->persist($ventaAsistidaProducto);
                 }
                 $this->em->flush();
+
+                /* email */
+
+                $email = new MailService();
+                $email->setEmail($cliente->getCorreoElectronico());
+                $email->setName($cliente->getPersona()->getNombre());
+                $email->setAddress($cliente->getPersona()->getDireccion());
+                $email->setPhone($cliente->getPersona()->getTelefono());
+                $email->sendEmail();
             }
+
+
 
             $jsonResponse =array(
                 'status' => true,
@@ -186,5 +208,20 @@ class ProductoService
         }
         return $jsonResponse;
     }
+
+    public function getMucipios()
+    {
+        $municipiosArray = array();
+        $municipios = $this->repositoryMunicipio->findBy(array());
+
+        foreach ($municipios as $municipio){
+            $municipiosArray[] = array(
+                'townName' => $municipio->getNombreMunicipio(),
+                'deptoName' => $municipio->getDepartamento()->getNombreDepartamento()
+            );
+        }
+        return $municipiosArray;
+    }
+
 
 }
