@@ -62,6 +62,7 @@ class ProductoService
                     );
                 }
             }
+            shuffle($productosArray);
             $jsonResponse = array(
                 'status' => true,
                 'productsArray' => $productosArray,
