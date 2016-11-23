@@ -49,15 +49,18 @@ class ProductoService
         if (count($prodcutos) > 0) {
 
             foreach ($prodcutos as $prodcuto){
-                $productosArray[] = array(
-                    'productoId' => $prodcuto->getCodigoProducto(),
-                    'name' => $prodcuto->getNombre(),
-                    'description' => $prodcuto->getDescripcion(),
-                    'image' => 'http://kronoswebserver.cloudapp.net/kronos/backend/web/'.$prodcuto->getImagen(),
-                    'isInstock' => ($prodcuto->getEstado() == 'Activo' ? true : false ),
-                    'Codigocategoria' => $prodcuto->getCategoriaProducto()->getCodigoCategoria(),
-                    'Nombrecategoria' => $prodcuto->getCategoriaProducto()->getNombreCategoria()
-                );
+
+                if ($prodcuto->getEstado() == 'Activo') {
+                    $productosArray[] = array(
+                        'productoId' => $prodcuto->getCodigoProducto(),
+                        'name' => $prodcuto->getNombre(),
+                        'description' => $prodcuto->getDescripcion(),
+                        'image' => 'http://kronoswebserver.cloudapp.net/kronos/backend/web/'.$prodcuto->getImagen(),
+                        'isInstock' => ($prodcuto->getEstado() == 'Activo' ? true : false ),
+                        'Codigocategoria' => $prodcuto->getCategoriaProducto()->getCodigoCategoria(),
+                        'Nombrecategoria' => $prodcuto->getCategoriaProducto()->getNombreCategoria()
+                    );
+                }
             }
             $jsonResponse = array(
                 'status' => true,
