@@ -118,6 +118,7 @@ class ProductoService
 
                 /* entida venta assistida Producto*/
 
+                $counter = 0;
                 foreach ($data_array['productsArray'] as $item) {
                     $poducto = $this->repositoryProducto->findOneBy(array('codigoProducto' => $item['productoId']));
                     if (count($poducto) > 0 && ($item['quantity']!= null)) {
@@ -131,15 +132,26 @@ class ProductoService
 
                 }
                 $this->em->flush();
+                if($counter > 0){
+                    /* email */
 
-                /* email */
+                    $email = new MailService();
+                    $email->setEmail($cliente->getCorreoElectronico());
+                    $email->setName($cliente->getPersona()->getNombre());
+                    $email->setAddress($cliente->getPersona()->getDireccion());
+                    $email->setPhone($cliente->getPersona()->getTelefono());
+                    $email->sendEmail();
 
-                $email = new MailService();
-                $email->setEmail($cliente->getCorreoElectronico());
-                $email->setName($cliente->getPersona()->getNombre());
-                $email->setAddress($cliente->getPersona()->getDireccion());
-                $email->setPhone($cliente->getPersona()->getTelefono());
-                $email->sendEmail();
+                    $jsonResponse =array(
+                        'status' => true,
+                        'message' => 'email sent'
+                    );
+                } else {
+                    $jsonResponse = array(
+                        'status' => false,
+                        'message' => 'email not sent'
+                    );
+                }
 
             } else {
 
@@ -183,34 +195,43 @@ class ProductoService
 
                 /* entida venta assistida Producto*/
 
+                $counter = 0;
                 foreach ($data_array['productsArray'] as $item) {
                     $poducto = $this->repositoryProducto->findOneBy(array('codigoProducto' => $item['productoId']));
-                    $ventaAsistidaProducto = new VentaAsistidaProducto();
-                    $ventaAsistidaProducto->setObservaciones($data_array['observaciones']);
-                    $ventaAsistidaProducto->setCantidadProducto($item['quantity']);
-                    $ventaAsistidaProducto->setProducto($poducto);
-                    $ventaAsistidaProducto->setVentaAsistida($ventaAsistida);
-                    $this->em->persist($ventaAsistidaProducto);
+                    if (count($poducto) > 0 && ($item['quantity']!= null)) {
+                        $ventaAsistidaProducto = new VentaAsistidaProducto();
+                        $ventaAsistidaProducto->setObservaciones($data_array['observaciones']);
+                        $ventaAsistidaProducto->setCantidadProducto($item['quantity']);
+                        $ventaAsistidaProducto->setProducto($poducto);
+                        $ventaAsistidaProducto->setVentaAsistida($ventaAsistida);
+                        $this->em->persist($ventaAsistidaProducto);
+                        $counter ++;
+                    }
                 }
                 $this->em->flush();
 
-                /* email */
+                if($counter > 0){
+                    /* email */
 
-                $email = new MailService();
-                $email->setEmail($cliente->getCorreoElectronico());
-                $email->setName($cliente->getPersona()->getNombre());
-                $email->setAddress($cliente->getPersona()->getDireccion());
-                $email->setPhone($cliente->getPersona()->getTelefono());
-                $email->sendEmail();
+                    $email = new MailService();
+                    $email->setEmail($cliente->getCorreoElectronico());
+                    $email->setName($cliente->getPersona()->getNombre());
+                    $email->setAddress($cliente->getPersona()->getDireccion());
+                    $email->setPhone($cliente->getPersona()->getTelefono());
+                    $email->sendEmail();
+
+                    $jsonResponse =array(
+                        'status' => true,
+                        'message' => 'email sent'
+                    );
+                } else {
+                    $jsonResponse = array(
+                        'status' => false,
+                        'message' => 'email not sent'
+                    );
+                }
+
             }
-
-
-
-            $jsonResponse =array(
-                'status' => true,
-                'message' => 'email sent'
-            );
-
 
         } else {
             $jsonResponse = array(
@@ -234,6 +255,5 @@ class ProductoService
         }
         return $municipiosArray;
     }
-
 
 }
