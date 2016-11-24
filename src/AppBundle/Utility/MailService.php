@@ -327,16 +327,16 @@ class MailService
                                             </tr>
                                             <tr>
                                                 <td style="color:#1e80b6;padding-top:1px;padding-bottom:1px;padding-left:20px;padding-right:20px">
-                                                     <h2>Hola ' . ucfirst($this->getName()) . '</h2> 
+                                                     <h2>Hola, ' . ucfirst($this->getName()) . '</h2> 
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="line-height:24px;padding-left:20px;padding-right:20px;padding-bottom:30px" colspan="2">
-                                                        Hemos recibido una solicitud de citización a nombre tuyo.
+                                                        Hemos recibido una solicitud de cotización a nombre tuyo.
                                                 <br><br>
                                                     En este proceso, uno de nuestros asesores te contactará  para resolver dudas o ayudarte en todo lo que tenga que ver con nuestro servicio.
                                                 <br><br>
-                                                    Recuerda que <strong>Solicitud de cotizacion</strong> no correspode a una compra, ni a un compromiso sobre los productos de los que deseas saber.
+                                                    Recuerda que la <strong>solicitud de cotizacion</strong> no correspode a una compra, ni a un compromiso sobre los productos de los que deseas saber.
                                                     
                                                 <br> <br>
                                                     Este email se envia de forma automatica, por favor no lo responda. 

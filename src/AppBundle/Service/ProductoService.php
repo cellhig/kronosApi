@@ -104,8 +104,8 @@ class ProductoService
 
                 if ($cliente->getPersona()->getNombre() != $data_array['clientName']) {
                     $persona = $cliente->getPersona();
-
                     $persona->setNombre($data_array['clientName']);
+
                 }
                 $now = new \DateTime();
 
