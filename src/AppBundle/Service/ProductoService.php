@@ -136,18 +136,28 @@ class ProductoService
                 if($counter > 0){
                     /* email */
 
-                    $email = new MailService();
-                    $email->setEmail($cliente->getCorreoElectronico());
-                    $email->setName($cliente->getPersona()->getNombre());
-                    $email->setAddress($cliente->getPersona()->getDireccion());
-                    $email->setPhone($cliente->getPersona()->getTelefono());
-                    $email->setTipeMail(1);
-                    $email->sendEmail();
+                    $emailVerification = $this->emailVerification($cliente->getCorreoElectronico());
 
-                    $jsonResponse =array(
-                        'status' => true,
-                        'message' => 'email sent'
-                    );
+                    if ($emailVerification == true) {
+                        $email = new MailService();
+                        $email->setEmail($cliente->getCorreoElectronico());
+                        $email->setName($cliente->getPersona()->getNombre());
+                        $email->setAddress($cliente->getPersona()->getDireccion());
+                        $email->setPhone($cliente->getPersona()->getTelefono());
+                        $email->setTipeMail(1);
+                        $email->sendEmail();
+
+                        $jsonResponse =array(
+                            'status' => true,
+                            'message' => 'email sent'
+                        );
+
+                    } else {
+                        $jsonResponse = array(
+                            'status' => false,
+                            'message' => 'email not sent'
+                        );
+                    }
                 } else {
                     $jsonResponse = array(
                         'status' => false,
@@ -215,18 +225,29 @@ class ProductoService
                 if($counter > 0){
                     /* email */
 
-                    $email = new MailService();
-                    $email->setEmail($cliente->getCorreoElectronico());
-                    $email->setName($cliente->getPersona()->getNombre());
-                    $email->setAddress($cliente->getPersona()->getDireccion());
-                    $email->setPhone($cliente->getPersona()->getTelefono());
-                    $email->setTipeMail(1);
-                    $email->sendEmail();
+                    $emailVerification = $this->emailVerification($cliente->getCorreoElectronico());
 
-                    $jsonResponse =array(
-                        'status' => true,
-                        'message' => 'email sent'
-                    );
+                    if ($emailVerification == true) {
+                        $email = new MailService();
+                        $email->setEmail($cliente->getCorreoElectronico());
+                        $email->setName($cliente->getPersona()->getNombre());
+                        $email->setAddress($cliente->getPersona()->getDireccion());
+                        $email->setPhone($cliente->getPersona()->getTelefono());
+                        $email->setTipeMail(1);
+                        $email->sendEmail();
+
+                        $jsonResponse =array(
+                            'status' => true,
+                            'message' => 'email sent'
+                        );
+                    } else {
+                        $jsonResponse = array(
+                            'status' => false,
+                            'message' => 'email not sent'
+                        );
+                    }
+
+
                 } else {
                     $jsonResponse = array(
                         'status' => false,
