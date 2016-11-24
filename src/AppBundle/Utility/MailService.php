@@ -27,6 +27,7 @@ class MailService
     private $time;
     private $dateid;
     private $date;
+    private $comments;
 
     /**
      * @return mixed
@@ -269,6 +270,22 @@ class MailService
         $this->date = $date;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+    }
+
 
     public function sendEmail()
     {
@@ -302,11 +319,12 @@ class MailService
             $mailer = \Swift_Mailer::newInstance($transport);
 
 
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Solicitud de cotizacion')
-                ->setFrom(array('distriherramientas@gmail.com' => 'DISTRIHERRAMIENTAS'))
-                ->setTo(array($this->getEmail() => $this->getName()))
-                ->setBody('
+            if ($this->getTipeMail() == 1) {
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Solicitud de cotizacion')
+                    ->setFrom(array('distriherramientas@gmail.com' => 'DISTRIHERRAMIENTAS'))
+                    ->setTo(array($this->getEmail() => $this->getName()))
+                    ->setBody('
                 <div marginheight="0" marginwidth="0" style="background-color:#ececec"><div class="adM">
                     <table style="max-width:1000px;margin:auto" align="center">
                         <tbody>
@@ -361,7 +379,69 @@ class MailService
                     </table>
                 </div>
                 ', 'text/html');
-            $mailer->send($message);
+                $mailer->send($message);
+
+            } elseif ($this->getTipeMail() == 2) {
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('comentarios desde la web')
+                    ->setFrom(array('distriherramientas@gmail.com' => 'DISTRIHERRAMIENTAS'))
+                    ->setTo($this->getEmail())
+                    ->setBody('
+                <div marginheight="0" marginwidth="0" style="background-color:#ececec"><div class="adM">
+                    <table style="max-width:1000px;margin:auto" align="center">
+                        <tbody>
+                            <tr>
+                                <td style="font-size:16px;font-weight:bold;padding-top:2px;padding-bottom:20px;padding-left:25px;padding-right:25px;text-align:center;color:#353e4a;font-family:Arial,sans-serif" align="center" width="100%">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom:8px">
+                                    <table style="color:#353e4a;font-family:Arial,sans-serif;font-size:18px;margin:auto" align="center" bgcolor="#ffffff" border="0">
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding-top:20px;padding-bottom:1px;padding-left:20px;padding-right:20px" align="right" width="100%">
+                                                    <a href="" title="Citamed" target="_blank">
+                                                        <img alt="Citamed" src="https://lh3.googleusercontent.com/-jwq6X12A2pk/WDI1spsOrZI/AAAAAAAACDg/FmcdsrO2Ti0m6hF1HhADhXi9rO5bzX2YACL0B/h84/2016-11-20.png" class="CToWUd">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color:#1e80b6;padding-top:1px;padding-bottom:1px;padding-left:20px;padding-right:20px">
+                                                     <h2>Hola, Alguen ha hecho un comentario.</h2> 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <br><br>
+                                                    Estos son los comentarios de: <strong>'.$this->getName(). '</strong>
+                                                     <br>
+                                                     <br>
+                                                     '.$this->getComments().'
+                                                     <br>
+                                                     <br>
+                                                     y puedes contactarle al siguente email: <strong>'.$this->getAddress()  .'</strong>.
+                                                    
+                                                <br> <br>
+                                                    Este email se envia de forma automatica.
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:5px" height="5"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:16px;font-weight:bold;padding-top:20px;padding-bottom:20px;padding-left:25px;padding-right:25px;text-align:center;color:#353e4a;font-family:Arial,sans-serif" align="center" width="100%">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                ', 'text/html');
+                $mailer->send($message);
+            }
+
         }
 
 

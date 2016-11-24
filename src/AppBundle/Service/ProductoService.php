@@ -141,6 +141,7 @@ class ProductoService
                     $email->setName($cliente->getPersona()->getNombre());
                     $email->setAddress($cliente->getPersona()->getDireccion());
                     $email->setPhone($cliente->getPersona()->getTelefono());
+                    $email->setTipeMail(1);
                     $email->sendEmail();
 
                     $jsonResponse =array(
@@ -219,6 +220,7 @@ class ProductoService
                     $email->setName($cliente->getPersona()->getNombre());
                     $email->setAddress($cliente->getPersona()->getDireccion());
                     $email->setPhone($cliente->getPersona()->getTelefono());
+                    $email->setTipeMail(1);
                     $email->sendEmail();
 
                     $jsonResponse =array(
@@ -257,4 +259,50 @@ class ProductoService
         return $municipiosArray;
     }
 
+    public function sendContactUsMail(Request $request)
+    {
+        $data_array = array(
+            'clientEmail' => $request->request->get('clientEmail'),
+            'clientName' => $request->request->get('clientName'),
+            'subject' => $request->request->get('subject'),
+            'comments' => $request->request->get('comments'),
+            );
+
+
+
+        $emailVerification = $this->emailVerification($data_array['clientEmail']);
+
+        if ($emailVerification == true) {
+
+            $email = new MailService();
+            $email->setEmail('higcell@gmail.com');
+            $email->setName($data_array['clientName']);
+            $email->setAddress($data_array['clientEmail']);
+            $email->setComments($data_array['comments']);
+            $email->setTipeMail(2);
+            $email->sendEmail();
+
+            $jsonResponse =array(
+                'status' => true,
+                'message' => 'email sent'
+            );
+
+        } else {
+            $jsonResponse =array(
+                'status' => false,
+                'message' => 'email not sent'
+            );
+        }
+        return $jsonResponse;
+    }
+
+    private function emailVerification($mail)
+    {
+        $syntax='#^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,6}$#';
+        if(preg_match($syntax,$mail)){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

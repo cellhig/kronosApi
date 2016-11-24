@@ -85,4 +85,39 @@ class ProductoController extends Controller
         }
 
     }
+
+    /**
+     * @ApiDoc(
+     *  description="enviar correo desde contact uss",
+     * parameters={
+     *  }
+     * )
+     * @Route("/contact_us_mail", name="app_api_send_contact_us_mail", defaults={"_format": "json"})
+     * @Method({"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function sendContactUsMailAction(Request $request){
+        $jsonFormatter = $this->get('utility.jsonService');
+        $jsonResponse = null;
+        $code = 500;
+        if ($jsonFormatter->jsonFormatter($request)) {
+            $dateService = $this->get('api.ProductoService')->sendContactUsMail($request);
+            if ($dateService != null) {
+                $jsonResponse = $dateService;
+                $code = 200;
+            } else {
+                $jsonResponse = array('message' => 'error', 'status' => false);
+            }
+            $response = new Response(json_encode($jsonResponse));
+            $response->setStatusCode($code);
+            return $response;
+        } else {
+            $jsonResponse = array('message' => 'invalid Json', 'status' => false);
+            $response = new Response(json_encode($jsonResponse));
+            $response->setStatusCode(400);
+            return $response;
+        }
+
+    }
 }
