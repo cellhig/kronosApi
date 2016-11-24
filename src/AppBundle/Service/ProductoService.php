@@ -267,30 +267,37 @@ class ProductoService
             'subject' => $request->request->get('subject'),
             'comments' => $request->request->get('comments'),
             );
+        $jsonResponse = array();
 
+        if ($data_array['clientEmail'] && $data_array['clientName'] && $data_array['subject'] && $data_array['comments']) {
+            $emailVerification = $this->emailVerification($data_array['clientEmail']);
 
+            if ($emailVerification == true) {
 
-        $emailVerification = $this->emailVerification($data_array['clientEmail']);
+                $email = new MailService();
+                $email->setEmail('higcell@gmail.com');
+                $email->setName($data_array['clientName']);
+                $email->setAddress($data_array['clientEmail']);
+                $email->setComments($data_array['comments']);
+                $email->setTittle($data_array['subject']);
+                $email->setTipeMail(2);
+                $email->sendEmail();
 
-        if ($emailVerification == true) {
+                $jsonResponse =array(
+                    'status' => true,
+                    'message' => 'email sent'
+                );
 
-            $email = new MailService();
-            $email->setEmail('higcell@gmail.com');
-            $email->setName($data_array['clientName']);
-            $email->setAddress($data_array['clientEmail']);
-            $email->setComments($data_array['comments']);
-            $email->setTipeMail(2);
-            $email->sendEmail();
-
-            $jsonResponse =array(
-                'status' => true,
-                'message' => 'email sent'
-            );
-
+            } else {
+                $jsonResponse = array(
+                    'status' => false,
+                    'message' => 'email not sent'
+                );
+            }
         } else {
-            $jsonResponse =array(
+            $jsonResponse = array(
                 'status' => false,
-                'message' => 'email not sent'
+                'message' => 'missing parameters'
             );
         }
         return $jsonResponse;

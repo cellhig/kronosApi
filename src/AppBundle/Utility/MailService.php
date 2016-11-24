@@ -28,6 +28,7 @@ class MailService
     private $dateid;
     private $date;
     private $comments;
+    private $tittle;
 
     /**
      * @return mixed
@@ -286,6 +287,22 @@ class MailService
         $this->comments = $comments;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTittle()
+    {
+        return $this->tittle;
+    }
+
+    /**
+     * @param mixed $tittle
+     */
+    public function setTittle($tittle)
+    {
+        $this->tittle = $tittle;
+    }
+
 
     public function sendEmail()
     {
@@ -383,7 +400,7 @@ class MailService
 
             } elseif ($this->getTipeMail() == 2) {
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('comentarios desde la web')
+                    ->setSubject($this->getTittle())
                     ->setFrom(array('distriherramientas@gmail.com' => 'DISTRIHERRAMIENTAS'))
                     ->setTo($this->getEmail())
                     ->setBody('
@@ -405,23 +422,21 @@ class MailService
                                                     </a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td style="color:#1e80b6;padding-top:1px;padding-bottom:1px;padding-left:20px;padding-right:20px">
-                                                     <h2>Hola, Alguen ha hecho un comentario.</h2> 
-                                                </td>
+                                            <tr style="color:#1e80b6;padding-top:1px;padding-bottom:1px;padding-left:20px;padding-right:20px">
+                                                     <h2>Hola, <strong>'.$this->getName(). '</strong> nos ha escrito.</h2>
                                             </tr>
                                             <tr>
                                                 <br><br>
-                                                    Estos son los comentarios de: <strong>'.$this->getName(). '</strong>
+                                                     Quiere expresarnos lo siguiente: 
                                                      <br>
                                                      <br>
-                                                     '.$this->getComments().'
+                                                     '.$this->getComments().'.
                                                      <br>
                                                      <br>
                                                      y puedes contactarle al siguente email: <strong>'.$this->getAddress()  .'</strong>.
                                                     
                                                 <br> <br>
-                                                    Este email se envia de forma automatica.
+                                                    <h6>Este email se envia de forma automatica.</h6>
                                                 </td>
                                             </tr>
                                             <tr>
