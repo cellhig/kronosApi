@@ -102,6 +102,11 @@ class ProductoService
                 $estadoVenta = $this->repositoryEstadoVentaAsistida->findOneBy(array('nombreEstadoVentaAsistida' => 'Nueva'));
                 $ventaAsistida = new VentaAsistida();
 
+                if ($cliente->getPersona()->getNombre() != $data_array['clientName']) {
+                    $persona = $cliente->getPersona();
+
+                    $persona->setNombre($data_array['clientName']);
+                }
                 $now = new \DateTime();
 
                 $ventaAsistida->setCliente($cliente);
@@ -115,12 +120,15 @@ class ProductoService
 
                 foreach ($data_array['productsArray'] as $item) {
                     $poducto = $this->repositoryProducto->findOneBy(array('codigoProducto' => $item['productoId']));
-                    $ventaAsistidaProducto = new VentaAsistidaProducto();
-                    $ventaAsistidaProducto->setObservaciones($data_array['observaciones']);
-                    $ventaAsistidaProducto->setCantidadProducto($item['quantity']);
-                    $ventaAsistidaProducto->setProducto($poducto);
-                    $ventaAsistidaProducto->setVentaAsistida($ventaAsistida);
-                    $this->em->persist($ventaAsistidaProducto);
+                    if (count($poducto) > 0 && ($item['quantity']!= null)) {
+                        $ventaAsistidaProducto = new VentaAsistidaProducto();
+                        $ventaAsistidaProducto->setObservaciones($data_array['observaciones']);
+                        $ventaAsistidaProducto->setCantidadProducto($item['quantity']);
+                        $ventaAsistidaProducto->setProducto($poducto);
+                        $ventaAsistidaProducto->setVentaAsistida($ventaAsistida);
+                        $this->em->persist($ventaAsistidaProducto);
+                    }
+
                 }
                 $this->em->flush();
 
