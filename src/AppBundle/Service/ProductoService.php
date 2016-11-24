@@ -128,6 +128,7 @@ class ProductoService
                         $ventaAsistidaProducto->setProducto($poducto);
                         $ventaAsistidaProducto->setVentaAsistida($ventaAsistida);
                         $this->em->persist($ventaAsistidaProducto);
+                        $counter ++;
                     }
 
                 }
